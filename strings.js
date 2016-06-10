@@ -1,25 +1,25 @@
-console.log(">LOG1 >>>strings.js working<<<");
+// console.log(">LOG1 >>>strings.js working<<<");
 
 // multiple var can be defined with this shorthand (THANKS SWANN!)
 var userInput = document.getElementById("yourInput"),
 		submitButton = document.getElementById("stuffDoer"),
 		domElement = document.getElementById("outputDomEl"),
+		origTestString = "",		 //this is the original user input - assigned ON EVENT!
 		reversedString = "",
-		origTestString = "fdsa sdf rewq",		 //this is the original user input - assigned ON EVENT!
-		testString = "asdffdsa";		 //this is the CLEANED UP user input for USE IN FUNCTIONS
+		testString = "";		 //this is the CHECKED user input for USE IN FUNCTIONS
 
-console.log("> origTestString value:", origTestString); //writes our ORIGINAL input
-
-
+//CHECK FOR ENTER KEY USE rather than click
 function ifEnterKey () {
 	if (event.which === 13) {
-		console.log(">LOG5 User Hit ENTER");
+		console.log(">User Hit ENTER");
 		validateInput();
 	}
 }
 
-
+//VALIDATE STRING IS TEXT ONLY
 function validateInput () {
+	origTestString = userInput.value;
+	domElement.innerHTML = `${origTestString}  :Your Input`;
 	var string = origTestString; //this is defined globally
 	function hasNumber(string) {
 	  return(/[\]\\_+-.,!?@#$%^&*():=;/|<>"'0-9]+/g.test(string));
@@ -27,55 +27,52 @@ function validateInput () {
 		if (!hasNumber(string)) { //BANG is saying "FALSE" + "FALSE" we'd get from an excluded character above, THUS = TRUE
 	    console.log("Valid");
 	    testString = origTestString; //overwriting our other global value for moving forward
-	    console.log(">testString value now: ", testString);
+	    console.log(">testString  : ", testString);
+			document.getElementById("error").innerHTML = `Excellent phrase!`;
+	    makeItSo ();
 	} else {
 	    console.log("Invalid -  No numbers or symbols");
+			document.getElementById("error").innerHTML = `Invalid -  No numbers or symbols`;
 	}
 }
 
-
-
-
+//REVERSAL FUNCTION
 function reversal(abc) {
   reversedString = abc.split("").reverse().join("");  //"abc" is the argument we enter when we call the function
-  console.log(">LOG6 reversedString", reversedString);
-  console.log("Our Reversed Value is: ", reversedString);
+  console.log("~Reversed    : ", reversedString);
+	domElement.innerHTML += `<hr/>${reversedString}  :Reversed!`;
   return reversedString;  // Return the new string (split then reversed then reassembled) for global use
 }
-
-
-// function alphabits() {
-
-// }
-
-
+//ALPHABITS FUNCTION
+function alphabits(abc) {
+  alphaBitsString = abc.split("").sort().join("");  //"abc" is the argument we enter when we call the function
+  console.log("~Alphabetized: ", alphaBitsString);
+	domElement.innerHTML += `<hr/>${alphaBitsString}  :Alphabetized!`;
+  return alphaBitsString;  // Return the new string (split then sorted then reassembled) for global use
+}
+//PALINDROME FUNCTION
 function palindrome(abc) {
-	if (abc === reversedString && !" ") {
-		console.log("You got yourself a palindrome :", reversedString);
+	if (abc === reversedString) {
+		console.log("~Palindrome!: ", reversedString);
+		domElement.innerHTML += `<hr/>${reversedString} :PALINDROME!!`;
+
 	} else {
-		console.log("Not a palindrome :", reversedString);
+		console.log("~Not palindrome: ", reversedString);
+		domElement.innerHTML += `<hr/>${reversedString} :not palindrome...`;
 	}
 }
 
-
-function makeItSo (testString){  //run ALL invocations at once
+//RUN ALL INVOCATIONS
+function makeItSo (){  
 	reversal(testString); 			//invokes reversal
-	// alphabits(testString); 	//invokes alphabits
+	alphabits(testString); 			//invokes alphabits
 	palindrome(testString); 		//invokes palindrome
 }
 
-
+//EVENT LISTENERS (keyup and click)
 userInput.addEventListener("keyup", ifEnterKey);
 submitButton.addEventListener("click", validateInput)
 
-
-
-// console.log(">LOG2 TEST Input:", testString); //writes our input
-// console.log(">LOG3 TEST Reverse:", reversal(testString)); //writes reverse of input
-// console.log(">LOG4",domElement);	
-// console.log(">LOG7 reversedString GLOBAL USE",reversal(testString));
-
-// var pattern = new RegExp(/[a-zA-Z]+/)
 
 //////////////The Following tells you your eventListener info//////////////
 // document.addEventListener("keyup", function(event) {
