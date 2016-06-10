@@ -1,0 +1,11 @@
+* {
+	margin: 10px;
+}
+
+div {
+	margin-left: 20px;
+}
+#outputDomEl {
+	margin:20;
+	color: purple;
+}
